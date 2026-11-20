@@ -12,3 +12,4 @@ https://gist.github.com/geohot/8a91117a3c01d83893266affeee4e073
 ## Files
 
 - GUIDE.md: The AI companion guide for going week by week based on the course.
+- assignments/: Copies of the weekly assignment PDFs from the course page. Each one is the spec for its week.
