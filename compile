@@ -1,0 +1,3 @@
+#!/bin/sh
+
+uv run ./src/10_411/__init__.py

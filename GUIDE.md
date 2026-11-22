@@ -11,31 +11,11 @@ This follows the same steps as [letsbuildacompiler's TUTORIAL.md](https://github
 3. Write the tests and the code, as described in "How each week works" at the end of this guide.
 4. Add your own lines under the week's Notes (make the heading if the week has none): where each idea lives in your code, where you left the spec, and gaps you found in the spec. Each part section in Eli's TUTORIAL.md has this kind of note.
 
-## Week 0: Setup
-
-- [ ] Done
-
-- Make the repo with a `tests/week1/` folder for `.uir` test files.
-- Make a runner that calls `./compile` on every test and checks each outcome against the file name prefix. Week 1 describes `./compile` and the prefixes.
-- Read the week 1 assignment, the course page, and the syllabus gist.
-- Skim the tinygrad repo so you know where the key files are.
-
 ## Week 1: UOps, rewrites, interpreter
 
-- [ ] Done
+Follow along with [week 1 assignment](assignments/week1.pdf) ([online copy](https://10-411.com/assignments/week1.pdf)). When this guide and the PDF disagree, the PDF wins. The course page calls it a draft, so check for a newer version before you start.
 
-The reference for this week is the [week 1 assignment](assignments/week1.pdf) ([online copy](https://10-411.com/assignments/week1.pdf)). When this guide and the PDF disagree, the PDF wins. The course page calls it a draft, so check for a newer version before you start.
-
-Example from the assignment:
-
-```
-%x = param [] slot=0 dtype=i32 addrspace=ALU
-%s = add %x %x
-%v = call %s 3
-%t = assert %v 6
-```
-
-`%x` is the input in slot 0. `%s` is a function body that uses it. The call binds slot 0 to 3, so the body computes 3 + 3 = 6. The assert compares 6 with 6, so `./compile` prints `MATCH` for this file.
+1. Create the ./compile program
 
 ### What the grader sees
 
@@ -66,7 +46,7 @@ Example from the assignment:
 - The other tokens are `[`, `]` and EOF.
 - The grammar:
 
-```
+```text
 file    := binding+ EOF
 binding := DEF rhs
 rhs     := OP atom* ATTR* | atom
@@ -185,7 +165,7 @@ MATCH:
 - The call example at the top of this week.
 - A body that calls another body with a different argument for the same slot. If substitution goes into the inner body, you get 12 instead of 28:
 
-```
+```text
 %x = param [] slot=0 dtype=i32 addrspace=ALU
 %g = mul %x %x
 %inner = call %g 5
@@ -196,7 +176,7 @@ MATCH:
 
 - A safe index:
 
-```
+```text
 %i = param [] [0 2] slot=0 dtype=i32 addrspace=ALU
 %e = index [10 20 30] %i
 %v = call %e 1
@@ -269,7 +249,7 @@ Read:
 
 Example from the course page:
 
-```
+```text
 %buf = extern [] slot=0 dtype=i32
 %write = store %buf 7
 %ready = after %buf %write
@@ -313,7 +293,7 @@ Read:
 
 Example from the course page:
 
-```
+```text
 %buf = extern 3 slot=0 dtype=i32
 %i = range 3 slot=0
 %write = store (index %buf %i) %i
@@ -360,7 +340,7 @@ Read:
 
 Example from the course page:
 
-```
+```text
 %values = add [1 2 3] (expand 1 3)
 %sum = reduce %values op=add pop=1
 %test = assert %sum 9
@@ -400,7 +380,7 @@ Read:
 
 Example from the course page:
 
-```
+```text
 %matrix = reshape [1 2 3 4] [2 2]
 %transposed = permute %matrix [1 0]
 %test = assert (index %transposed 1 0) 2
@@ -434,7 +414,7 @@ Read:
 
 Example from the course page:
 
-```
+```text
 # raw f32 data in data/x.bin: 1.0 2.0 3.0 4.0
 %result = {
   %x = extern [2 2] slot=0 dtype=f32 url=data/x.bin
@@ -553,7 +533,6 @@ Read:
 ## Week 11: Real models
 
 - [ ] Done
-
 - Run a real LLM fast on GPU.
 - Train a small model from scratch with autodiff across GPUs.
 - Read tinygrad `examples/` and [Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT) as models to copy.
